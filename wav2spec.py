@@ -10,10 +10,6 @@ from scipy.io import wavfile
 from scipy.signal import butter, lfilter
 import scipy.ndimage
 
-
-#break up into multiple spectrograms
-
-
 # Also mostly modified or taken from https://gist.github.com/kastnerkyle/179d6e9a88202ab0a2fe
 def invert_pretty_spectrogram(X_s, log = True, fft_size = 512, step_size = 512/4, n_iter = 10):
     
@@ -210,21 +206,21 @@ def plotstft(audiopath, binsize=2**9-1, plotpath=None, colormap="jet"):
 
     ims = 20.*np.log10(np.abs(sshow)/10e-6) # amplitude to decibel
 
-    print(ims.shape)
-    print(ims)
-    ims = ims[:256]
-    orig_min = np.amin(ims)
-    orig_max = np.amax(ims)
-    print(orig_min)
-    print(orig_max)
-    print(ims)
-    print(ims.shape)
+    num_specs = ims.shape[0]/256
+    im_list = []
+    for spec in range(num_specs):
+        im_list.append(ims[spec*256:(spec + 1) * 256])
+    orig_min = []
+    orig_max = []
+    for spec in im_list:
+        orig_min.append(np.amin(spec))
+        orig_max.append(np.amax(spec))
 
-    timebins, freqbins = np.shape(ims)
+    #timebins, freqbins = np.shape(ims)
 
-    print("timebins: ", timebins)
-    print("freqbins: ", freqbins)
-
+    #print("timebins: ", timebins)
+    #print("freqbins: ", freqbins)
+    """
     plt.figure(figsize=(15, 7.5))
     plt.imshow(np.transpose(ims), origin="lower", aspect="auto", cmap=colormap, interpolation="none")
     plt.colorbar()
@@ -245,29 +241,16 @@ def plotstft(audiopath, binsize=2**9-1, plotpath=None, colormap="jet"):
         plt.show()
 
     plt.clf()
+    """
 
     return ims, orig_min, orig_max
 
 """return greyscale image from spectrogram"""
 def spec2im(spec, orig_min, orig_max, new_min=0, new_max=255):
 	spec = (new_max-new_min)*(spec-orig_min)/(orig_max-orig_min) + new_min
-	print(spec)
-	print(np.amin(spec))
-	print(np.amax(spec))
-	print(spec.shape)
 	return spec
 
 
-ims, orig_min, orig_max = plotstft('./reconstructed_wav/vivaldi/vivaldi_mono_1.wav')
-img = spec2im(ims, orig_min, orig_max)
-img = Image.fromarray(img)
-if img.mode != 'RGB':
-	img = img.convert('RGB')
-img.save("testpil1.png")
-
-import cv2
-im = cv2.imread('testpil1.png')
-print(im.shape)
 
 
 if __name__ == '__main__':
@@ -283,7 +266,13 @@ if __name__ == '__main__':
 			print(fbase)
 			inname = source_dir + fbase + ".wav"
 			outname = './reconstructed_spec/' + composer + '/' + fbase + ".png"
-			graph_spectrogram(wav_file, outname)
+			ims, orig_min, orig_max = plotstft(inname)
+            for ind, spec in enumerate(ims):
+                img = spec2im(ims[ind], orig_min[ind], orig_max[ind])
+                img = Image.fromarray(img)
+                if img.mode != 'RGB':
+                    img = img.convert('RGB')
+                img.save(outname)
 		print("finished: " + composer + "!")
 
 
