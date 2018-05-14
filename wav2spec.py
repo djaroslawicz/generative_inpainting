@@ -4,6 +4,8 @@ from matplotlib import pyplot as plt
 import scipy.io.wavfile as wav
 from numpy.lib import stride_tricks
 from PIL import Image
+import os
+import glob
 
 import copy
 from scipy.io import wavfile
@@ -206,15 +208,15 @@ def plotstft(audiopath, binsize=2**9-1, plotpath=None, colormap="jet"):
 
     ims = 20.*np.log10(np.abs(sshow)/10e-6) # amplitude to decibel
 
-    num_specs = ims.shape[0]/256
+    num_specs = int(ims.shape[0]/256)
     im_list = []
     for spec in range(num_specs):
         im_list.append(ims[spec*256:(spec + 1) * 256])
     orig_min = []
     orig_max = []
     for spec in im_list:
-        orig_min.append(np.amin(spec))
-        orig_max.append(np.amax(spec))
+    	orig_min.append(np.amin(spec))
+    	orig_max.append(np.amax(spec))
 
     #timebins, freqbins = np.shape(ims)
 
@@ -243,7 +245,7 @@ def plotstft(audiopath, binsize=2**9-1, plotpath=None, colormap="jet"):
     plt.clf()
     """
 
-    return ims, orig_min, orig_max
+    return im_list, orig_min, orig_max
 
 """return greyscale image from spectrogram"""
 def spec2im(spec, orig_min, orig_max, new_min=0, new_max=255):
@@ -267,12 +269,12 @@ if __name__ == '__main__':
 			inname = source_dir + fbase + ".wav"
 			outname = './reconstructed_spec/' + composer + '/' + fbase + ".png"
 			ims, orig_min, orig_max = plotstft(inname)
-            for ind, spec in enumerate(ims):
-                img = spec2im(ims[ind], orig_min[ind], orig_max[ind])
-                img = Image.fromarray(img)
-                if img.mode != 'RGB':
-                    img = img.convert('RGB')
-                img.save(outname)
+			for ind, spec in enumerate(ims):
+				img = spec2im(ims[ind], orig_min[ind], orig_max[ind])
+				img = Image.fromarray(img)
+				if img.mode != 'RGB':
+					img = img.convert('RGB')
+					img.save(outname)
 		print("finished: " + composer + "!")
 
 
