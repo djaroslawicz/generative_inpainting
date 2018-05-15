@@ -267,14 +267,14 @@ if __name__ == '__main__':
 			fbase = os.path.splitext(os.path.basename(wav_file))[0]
 			print(fbase)
 			inname = source_dir + fbase + ".wav"
-			outname = './reconstructed_spec/' + composer + '/' + fbase + ".png"
+			outname = './reconstructed_spec/' + composer + '/' + fbase
 			ims, orig_min, orig_max = plotstft(inname)
 			for ind, spec in enumerate(ims):
 				img = spec2im(ims[ind], orig_min[ind], orig_max[ind])
 				img = Image.fromarray(img)
 				if img.mode != 'RGB':
 					img = img.convert('RGB')
-					img.save(outname)
+					img.save(outname + "_" + str(ind) + ".png")
 		print("finished: " + composer + "!")
 
 
