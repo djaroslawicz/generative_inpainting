@@ -1,0 +1,21 @@
+Playing ./reconstructed_test_train_midi/brahms/split/brahms_mono_split_1.mid
+MIDI file: ./reconstructed_test_train_midi/brahms/split/brahms_mono_split_1.mid
+Format: 1  Tracks: 1  Divisions: 1024
+Sequence: Piano
+Playing time: ~26 seconds
+Notes cut: 0
+Notes lost totally: 0
+Playing ./reconstructed_test_train_midi/brahms/split/brahms_mono_split_2.mid
+MIDI file: ./reconstructed_test_train_midi/brahms/split/brahms_mono_split_2.mid
+Format: 1  Tracks: 1  Divisions: 1024
+Sequence: Piano
+Playing time: ~10 seconds
+Notes cut: 0
+Notes lost totally: 0
+Playing ./reconstructed_test_train_midi/brahms/split/brahms_mono_split_3.mid
+MIDI file: ./reconstructed_test_train_midi/brahms/split/brahms_mono_split_3.mid
+Format: 1  Tracks: 1  Divisions: 1024
+Sequence: Piano
+Playing time: ~239 seconds
+Notes cut: 0
+Notes lost totally: 0

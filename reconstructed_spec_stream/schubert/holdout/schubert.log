@@ -1,0 +1,21 @@
+Playing ./reconstructed_test_train_midi/schubert/holdout/schubert_mono_holdout_1.mid
+MIDI file: ./reconstructed_test_train_midi/schubert/holdout/schubert_mono_holdout_1.mid
+Format: 1  Tracks: 1  Divisions: 1024
+Sequence: Piano
+Playing time: ~544 seconds
+Notes cut: 0
+Notes lost totally: 0
+Playing ./reconstructed_test_train_midi/schubert/holdout/schubert_mono_holdout_2.mid
+MIDI file: ./reconstructed_test_train_midi/schubert/holdout/schubert_mono_holdout_2.mid
+Format: 1  Tracks: 1  Divisions: 1024
+Sequence: Piano
+Playing time: ~364 seconds
+Notes cut: 0
+Notes lost totally: 0
+Playing ./reconstructed_test_train_midi/schubert/holdout/schubert_mono_holdout_3.mid
+MIDI file: ./reconstructed_test_train_midi/schubert/holdout/schubert_mono_holdout_3.mid
+Format: 1  Tracks: 1  Divisions: 1024
+Sequence: Piano
+Playing time: ~457 seconds
+Notes cut: 0
+Notes lost totally: 0
